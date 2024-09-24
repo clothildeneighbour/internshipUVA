@@ -41,13 +41,13 @@ class Newspaper_Archives_Scraper :
 
     def remove_duplicates_by_link(self):
         """
-        Supprime les articles en double basés sur les liens.
+        Deletes duplicates of article urls. 
 
         Args:
-        - articles (list of dict): Liste de dictionnaires avec 'title' et 'link' pour chaque article.
+        - articles (list of dict): list of dictionaries with 'title' and 'link' for each article.
 
         Returns:
-        - list of dict: Liste de dictionnaires sans doublons.
+        - list of dict: list of dictionaries with no duplicates.
         """
         seen_links = set()
         unique_articles = []
@@ -106,13 +106,13 @@ class Archive_date(Newspaper_Archives_Scraper) :
                     break
 
             if detected_format is None:
-                raise ValueError(f"Format de date non supporté dans l'URL modèle : {self.url}")
+                raise ValueError(f"Unsupported date format in : {self.url}")
 
             return detected_format, to_replace
 
 
     def generate_archive_urls(self):
-      # Définir les formats de conversion
+      # Define conversion formats
       format_mappings = {
           'DD-MM-YYYY': '%d-%m-%Y',
           'DD.MM.YYYY': '%d.%m.%Y',
@@ -129,7 +129,7 @@ class Archive_date(Newspaper_Archives_Scraper) :
           day = self.start_date + timedelta(days=i)
 
 
-          # Convertir l'objet datetime en chaîne de caractères avec le format détecté
+          # Converts the date detected in the supported datetime format
           formatted_date = day.strftime(format_mappings[self.url_type])
 
           # Remplacer la date dans l'URL format
@@ -269,7 +269,7 @@ def main(params):
     return dataframe
 
 
-#Remplacer par les thèmes à exclure en fonction de ceux qui existent sur le site
+#Replace with themes to exclude of the scraping depending of those present on the website
 themes_to_exclude = themes_to_exclude = [
     "deportes",
     "ajedrez",
@@ -290,10 +290,10 @@ themes_to_exclude = themes_to_exclude = [
 
 #Remplir 
 params = {
-        'newspaper': 'El Pais',  # Le nom du journal que vous souhaitez scraper
-        'url': 'https://elpais.com/hemeroteca/2008-06-11/',  # URL de modèle pour les archives
-        'start_date': '19.05.2003',  # Date de début
-        'end_date': '31.12.2023',  # Date de fin
+        'newspaper': 'El Pais',  # name of the newspaper to scrape
+        'url': 'https://elpais.com/hemeroteca/2008-06-11/',  # example of an archive URL
+        'start_date': '19.05.2003',  # starting date
+        'end_date': '31.12.2023',  # ending date
         'themes_to_exclude' : themes_to_exclude
     }
 
